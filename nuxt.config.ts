@@ -78,6 +78,9 @@ export default defineNuxtConfig({
         experimental: {
             openAPI: true,
         },
+        prerender: {
+            failOnError: false,
+        },
     },
 
     pwa: {
@@ -141,7 +144,7 @@ export default defineNuxtConfig({
             ],
         },
         devOptions: {
-            enabled: true,
+            enabled: process.env.NODE_ENV === 'development',
             type: 'module',
         },
     },
