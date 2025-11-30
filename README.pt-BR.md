@@ -225,4 +225,9 @@ Retorna informações da sessão atual
 
 ## 📝 Licença
 
-MIT
+[UNLICENSE](./LICENSE) <br>
+For more information, please refer to <https://unlicense.org>
+
+----
+### Deploy na [Vercel](https://vercel.com):
+<a href="https://vercel.com/new/clone?repository-url=https://github.com/tiagofrancafernandes/TimeSpeaker/tree/master"><img src="https://vercel.com/button"></a>
