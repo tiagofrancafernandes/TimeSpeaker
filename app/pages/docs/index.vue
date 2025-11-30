@@ -1,23 +1,25 @@
 <script setup lang="ts">
 import type { StaticDocsCollectionItem } from '@nuxt/content'
 
-type StringOrNull = string | null;
-type AnyObject = Record<string, StringOrNull>;
+type StringOrNull = string | null
+type AnyObject = Record<string, StringOrNull>
 
-const router = useRouter();
-const currentPage = router.currentRoute.value;
-const { data: currentPageData } = await useAsyncData(() => queryCollection('staticDocs').path('/').first());
+const router = useRouter()
+const currentPage = router.currentRoute.value
+const { data: currentPageData } = await useAsyncData(() =>
+    queryCollection('staticDocs').path('/').first()
+)
 // const { data: allContent } = await useAsyncData(() => queryCollection('staticDocs').all());
 
-const allStaticDocs = await queryCollection('staticDocs').order('date', 'DESC').all();
+const allStaticDocs = await queryCollection('staticDocs').order('date', 'DESC').all()
 
-console.log('docs index currentPage path', currentPage?.path);
-console.log('docs index currentPageData', currentPageData);
+console.log('docs index currentPage path', currentPage?.path)
+console.log('docs index currentPageData', currentPageData)
 
 useSeoMeta({
     title: currentPageData.value?.title,
     description: currentPageData.value?.description,
-});
+})
 
 const makeUri = (item: StaticDocsCollectionItem): string => {
     return (
@@ -27,20 +29,20 @@ const makeUri = (item: StaticDocsCollectionItem): string => {
             .replaceAll(/^(staticDocs){1,}/g, '')
             .replaceAll(/^(staticdocs){1,}/g, '')
             .replaceAll(/^(\/){1,}/g, '')
-    );
-};
+    )
+}
 
 const formatTitle = (item: StaticDocsCollectionItem): string => {
     let title = String((item?.title as StringOrNull) || '')
         .replaceAll(`\n`, '')
-        .trim();
+        .trim()
 
     if (title?.length <= 50) {
-        return title;
+        return title
     }
 
-    return title.slice(0, 45) + ' ...';
-};
+    return title.slice(0, 45) + ' ...'
+}
 </script>
 
 <template>

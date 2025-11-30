@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import type { StaticDocsCollectionItem } from '@nuxt/content';
+import type { StaticDocsCollectionItem } from '@nuxt/content'
 
-type StringOrNull = string | null;
+type StringOrNull = string | null
 
-const slug = useRoute().params.slug;
+const slug = useRoute().params.slug
 
 const filePathFromSlug = (slug: StringOrNull): string => {
     slug = String((slug as StringOrNull) || '')
@@ -11,21 +11,21 @@ const filePathFromSlug = (slug: StringOrNull): string => {
         .replaceAll(/^(docs){1,}/g, '')
         .replaceAll(/^(staticDocs){1,}/g, '')
         .replaceAll(/^(staticdocs){1,}/g, '')
-        .replaceAll(/^(\/){1,}/g, '');
+        .replaceAll(/^(\/){1,}/g, '')
 
-    return `/staticdocs/${slug}`;
-};
+    return `/staticdocs/${slug}`
+}
 
 const { data: currentPageData } = await useAsyncData(`docs-${slug}`, () => {
     return queryCollection('staticDocs')
         .path(filePathFromSlug(slug as StringOrNull))
-        .first();
-});
+        .first()
+})
 
 // const allStaticDocuments = await queryCollection('staticDocs').all();
 // const staticDocumentData = await queryCollection('staticDocs').path(filePathFromSlug(slug as StringOrNull)).first();
 
-console.log('currentPageData slug: "%s"', slug, currentPageData.value);
+console.log('currentPageData slug: "%s"', slug, currentPageData.value)
 // console.log('staticDocumentData slug: "%s"', slug, staticDocumentData);
 </script>
 

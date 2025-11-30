@@ -116,13 +116,13 @@ const navigationItems = ref([
         disabled: true,
     },
     /** */
-]);
+])
 
 const pushItemToMenu = (item: any) => {
-    let currentNavigationItems = navigationItems.value || [];
-    currentNavigationItems.push(item);
-    navigationItems.value = currentNavigationItems;
-};
+    let currentNavigationItems = navigationItems.value || []
+    currentNavigationItems.push(item)
+    navigationItems.value = currentNavigationItems
+}
 
 const iconList = [
     'i-lucide-home',
@@ -136,23 +136,23 @@ const iconList = [
     'i-lucide-file-text',
     'i-lucide-box',
     'i-lucide-circle-help',
-];
+]
 
-const allStaticDocs = await queryCollection('staticDocs').order('date', 'DESC').all();
+const allStaticDocs = await queryCollection('staticDocs').order('date', 'DESC').all()
 
 const docsList: any = {
     label: 'Docs',
     icon: 'i-lucide-book-open',
     to: '/docs',
     children: [],
-};
+}
 
 for (let docItem of allStaticDocs) {
-    let uri = makeStaticDocUri(docItem);
-    let icon = 'i-lucide-book-open';
+    let uri = makeStaticDocUri(docItem)
+    let icon = 'i-lucide-book-open'
 
     if (['/docs/', 'docs/'].includes(uri)) {
-        icon = 'i-lucide-book-open';
+        icon = 'i-lucide-book-open'
     }
 
     docsList.children.push({
@@ -161,10 +161,10 @@ for (let docItem of allStaticDocs) {
         to: uri,
         icon,
         ...docItem,
-    });
+    })
 }
 
-pushItemToMenu(docsList);
+pushItemToMenu(docsList)
 
 pushItemToMenu({
     label: 'GitHub',
@@ -172,12 +172,14 @@ pushItemToMenu({
     badge: '1.8k',
     to: 'https://github.com/tiagofrancafernandes',
     target: '_blank',
-});
+})
 </script>
 
 <template>
     <div class="bg-indigo-100 dark:bg-indigo-900 text-indigo-900 dark:text-indigo-50">
-        <div class="w-full md:w-10/12 md:mx-auto flex gap-4 items-center md:flex-1 md:justify-center">
+        <div
+            class="w-full md:w-10/12 md:mx-auto flex gap-4 items-center md:flex-1 md:justify-center"
+        >
             <UNavigationMenu :items="navigationItems" />
             <UColorModeSwitch :ui="{ base: ['cursor-pointer'] }" />
         </div>

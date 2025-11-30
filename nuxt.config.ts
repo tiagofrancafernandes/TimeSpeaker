@@ -17,7 +17,9 @@ export default defineNuxtConfig({
         isDevelopment: process.env.APP_ENV === 'development',
         audioCacheDir: process.env.AUDIO_CACHE_DIR || './public/audio-cache',
         rateLimitUnauth: parseInt(process.env.RATE_LIMIT_UNAUTH || '5'),
-        enableDevBypassLimit: Boolean(process.env.ENABLE_DEV_BYPASS_LIMIT ?? process.env.APP_ENV === 'development'),
+        enableDevBypassLimit: Boolean(
+            process.env.ENABLE_DEV_BYPASS_LIMIT ?? process.env.APP_ENV === 'development'
+        ),
         devBypassLimit: parseInt(process.env.DEV_BYPASS_LIMIT || '120'),
         rateLimitAuth: parseInt(process.env.RATE_LIMIT_AUTH || '20'),
         defaultLanguage: process.env.DEFAULT_LANGUAGE || 'en',
@@ -31,6 +33,7 @@ export default defineNuxtConfig({
         '@nuxt/test-utils',
         '@nuxt/ui',
         '@nuxtjs/color-mode',
+        '@vite-pwa/nuxt',
         //
     ],
 
@@ -76,4 +79,70 @@ export default defineNuxtConfig({
             openAPI: true,
         },
     },
-});
+
+    pwa: {
+        registerType: 'autoUpdate',
+        manifest: {
+            name: 'TimeSpeaker',
+            short_name: 'TimeSpeaker',
+            description: 'Listen to the current time in your language with automatic announcements',
+            theme_color: '#6366f1',
+            background_color: '#ffffff',
+            display: 'standalone',
+            orientation: 'portrait',
+            scope: '/',
+            start_url: '/',
+            icons: [
+                {
+                    src: '/icon-192x192.png',
+                    sizes: '192x192',
+                    type: 'image/png',
+                    purpose: 'any',
+                },
+                {
+                    src: '/icon-512x512.png',
+                    sizes: '512x512',
+                    type: 'image/png',
+                    purpose: 'any',
+                },
+                {
+                    src: '/icon-maskable-192x192.png',
+                    sizes: '192x192',
+                    type: 'image/png',
+                    purpose: 'maskable',
+                },
+                {
+                    src: '/icon-maskable-512x512.png',
+                    sizes: '512x512',
+                    type: 'image/png',
+                    purpose: 'maskable',
+                },
+            ],
+        },
+        workbox: {
+            navigateFallback: '/',
+            globPatterns: ['**/*.{js,css,html,png,svg,ico}'],
+            cleanupOutdatedCaches: true,
+            runtimeCaching: [
+                {
+                    urlPattern: /^https:\/\/translate\.googleapis\.com\/.*/i,
+                    handler: 'CacheFirst',
+                    options: {
+                        cacheName: 'google-tts-cache',
+                        expiration: {
+                            maxEntries: 100,
+                            maxAgeSeconds: 60 * 60 * 24 * 7, // 7 days
+                        },
+                        cacheableResponse: {
+                            statuses: [0, 200],
+                        },
+                    },
+                },
+            ],
+        },
+        devOptions: {
+            enabled: true,
+            type: 'module',
+        },
+    },
+})

@@ -1,30 +1,33 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
+import type { H3Event } from 'h3'
+import { detectSession } from '../../../server/utils/sessionDetector'
+
+// Mock H3 functions
+vi.mock('h3', async () => {
+    const actual = await vi.importActual('h3')
+    return {
+        ...actual,
+        getQuery: vi.fn(),
+        getHeader: vi.fn(),
+    }
+})
 
 describe('API /api/session', () => {
     beforeEach(() => {
         vi.clearAllMocks()
-    })
-
-    it('should return session information with default values', async () => {
-        const mockEvent = {
-            context: {},
-            method: 'GET',
-        }
-
-        // Mock dependencies
-        vi.mock('h3', () => ({
-            getQuery: vi.fn(() => ({})),
-            getHeader: vi.fn(() => null),
-        }))
-
         vi.stubGlobal('useRuntimeConfig', () => ({
             defaultLanguage: 'en',
             defaultTimezone: 'UTC',
         }))
+    })
 
-        // Import after mocking
-        const { detectSession } = await import('../../../server/utils/sessionDetector')
-        const result = detectSession(mockEvent as any)
+    it('should return session information with default values', async () => {
+        const { getQuery, getHeader } = await import('h3')
+        vi.mocked(getQuery).mockReturnValue({})
+        vi.mocked(getHeader).mockReturnValue(null)
+
+        const mockEvent = {} as H3Event
+        const result = detectSession(mockEvent)
 
         expect(result).toHaveProperty('language')
         expect(result).toHaveProperty('timezone')
@@ -33,37 +36,23 @@ describe('API /api/session', () => {
     })
 
     it('should detect language from query parameter', async () => {
-        vi.mock('h3', () => ({
-            getQuery: vi.fn(() => ({ language: 'pt-BR' })),
-            getHeader: vi.fn(() => null),
-        }))
+        const { getQuery, getHeader } = await import('h3')
+        vi.mocked(getQuery).mockReturnValue({ language: 'pt-BR' })
+        vi.mocked(getHeader).mockReturnValue(null)
 
-        vi.stubGlobal('useRuntimeConfig', () => ({
-            defaultLanguage: 'en',
-            defaultTimezone: 'UTC',
-        }))
-
-        const { detectSession } = await import('../../../server/utils/sessionDetector')
-        const mockEvent = { context: {}, method: 'GET' }
-        const result = detectSession(mockEvent as any)
+        const mockEvent = {} as H3Event
+        const result = detectSession(mockEvent)
 
         expect(result.language).toBe('pt-BR')
     })
 
     it('should detect timezone from query parameter', async () => {
-        vi.mock('h3', () => ({
-            getQuery: vi.fn(() => ({ timezone: 'America/Sao_Paulo' })),
-            getHeader: vi.fn(() => null),
-        }))
+        const { getQuery, getHeader } = await import('h3')
+        vi.mocked(getQuery).mockReturnValue({ timezone: 'America/Sao_Paulo' })
+        vi.mocked(getHeader).mockReturnValue(null)
 
-        vi.stubGlobal('useRuntimeConfig', () => ({
-            defaultLanguage: 'en',
-            defaultTimezone: 'UTC',
-        }))
-
-        const { detectSession } = await import('../../../server/utils/sessionDetector')
-        const mockEvent = { context: {}, method: 'GET' }
-        const result = detectSession(mockEvent as any)
+        const mockEvent = {} as H3Event
+        const result = detectSession(mockEvent)
 
         expect(result.timezone).toBe('America/Sao_Paulo')
     })

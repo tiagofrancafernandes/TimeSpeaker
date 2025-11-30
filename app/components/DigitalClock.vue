@@ -1,6 +1,8 @@
 <template>
     <div class="flex flex-col items-center gap-2">
-        <div class="text-5xl md:text-7xl font-bold font-mono tracking-wider text-gray-900 dark:text-gray-100">
+        <div
+            class="text-5xl md:text-7xl font-bold font-mono tracking-wider text-gray-900 dark:text-gray-100"
+        >
             {{ formattedTime }}
         </div>
         <div class="text-lg md:text-xl text-gray-600 dark:text-gray-400 opacity-80">
@@ -10,12 +12,7 @@
 </template>
 
 <script setup lang="ts">
-import {
-    computed,
-    onMounted,
-    onUnmounted,
-    ref,
-} from 'vue'
+import { computed, onMounted, onUnmounted, ref } from 'vue'
 
 const props = defineProps<{
     timezone: string

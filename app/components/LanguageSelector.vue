@@ -1,6 +1,10 @@
 <template>
     <div class="w-full">
-        <label for="language-select" class="block mb-2.5 text-sm font-medium text-gray-700 dark:text-gray-300">Language</label>
+        <label
+            for="language-select"
+            class="block mb-2.5 text-sm font-medium text-gray-700 dark:text-gray-300"
+            >Language</label
+        >
         <select
             id="language-select"
             v-model="selectedLanguage"
@@ -15,31 +19,28 @@
 </template>
 
 <script setup lang="ts">
-import {
-    ref,
-    watch,
-} from 'vue'
+import { ref, watch } from 'vue'
 
 const props = defineProps<{
-    modelValue: string;
-}>();
+    modelValue: string
+}>()
 
 const emit = defineEmits<{
-    'update:modelValue': [value: string];
-    change: [value: string];
-}>();
+    'update:modelValue': [value: string]
+    change: [value: string]
+}>()
 
-const selectedLanguage = ref(props.modelValue);
+const selectedLanguage = ref(props.modelValue)
 
 watch(
     () => props.modelValue,
     (newValue) => {
-        selectedLanguage.value = newValue;
+        selectedLanguage.value = newValue
     }
-);
+)
 
 const handleChange = () => {
-    emit('update:modelValue', selectedLanguage.value);
-    emit('change', selectedLanguage.value);
-};
+    emit('update:modelValue', selectedLanguage.value)
+    emit('change', selectedLanguage.value)
+}
 </script>

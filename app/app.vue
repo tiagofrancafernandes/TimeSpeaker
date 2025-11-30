@@ -2,20 +2,22 @@
 import { findPageBreadcrumb } from '@nuxt/content/utils'
 import { mapContentNavigation } from '@nuxt/ui/utils/content'
 
-const { data: navigation } = await useAsyncData('navigation', () => queryCollectionNavigation('content'));
+const { data: navigation } = await useAsyncData('navigation', () =>
+    queryCollectionNavigation('content')
+)
 
-const router = useRouter();
-const page = router.currentRoute.value;
+const router = useRouter()
+const page = router.currentRoute.value
 
-console.log('page', page);
+console.log('page', page)
 
 const breadcrumb = computed(
     () =>
-        mapContentNavigation(findPageBreadcrumb(navigation?.value, page?.path, { indexAsChild: true })).map(
-            ({ icon, ...link }) => link
-        ),
+        mapContentNavigation(
+            findPageBreadcrumb(navigation?.value, page?.path, { indexAsChild: true })
+        ).map(({ icon, ...link }) => link),
     { deep: 0 }
-);
+)
 </script>
 
 <template>

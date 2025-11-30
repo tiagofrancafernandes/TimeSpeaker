@@ -211,6 +211,24 @@ Generates or returns audio of the current time
 **Headers:**
 - `Accept`: `audio/mpeg` or `application/json`
 
+Demo http: <br>
+
+#### GET request demo (json response)
+```http
+GET /api/audio
+?language=pt-BR
+&timezone=America%2FSao_Paulo
+Accept: application/json
+Authorization: Bearer MyAuthToken
+```
+
+#### GET request demo (mp3 response)
+```http
+GET /api/audio
+?language=pt-BR
+&timezone=America%2FSao_Paulo
+```
+
 ### `GET /api/session`
 Returns current session information
 
@@ -223,6 +241,32 @@ Returns current session information
 }
 ```
 
+### Demo URLs
+- http://localhost:3000/api/audio?language=pt-BR&timezone=America%2FSao_Paulo&type=audio
+- http://localhost:3000/api/audio?language=pt-BR&timezone=America%2FSao_Paulo&type=json
+
+## ⌛ Rate limiting
+By default unauthenticated requests can do `5` requests by minute and auth requests `20`.
+
+You can change the values in .env file or your environment settings
+```sh
+RATE_LIMIT_UNAUTH=5
+RATE_LIMIT_AUTH=20
+```
+
+Auth headers:
+
+```sh
+## TODO
+Authorization: [any string]
+App-Id: [any uuid string]
+```
+
 ## 📝 License
 
-MIT
+[UNLICENSE](./LICENSE) <br>
+For more information, please refer to <https://unlicense.org>
+
+----
+### Deploy on [Vercel](https://vercel.com):
+<a href="https://vercel.com/new/clone?repository-url=https://github.com/tiagofrancafernandes/TimeSpeaker/tree/master"><img src="https://vercel.com/button"></a>
