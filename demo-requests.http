@@ -1,0 +1,28 @@
+#####################
+##### VSCode extension: humao.rest-client
+#####################
+
+### POST request demo (json response)
+POST http://localhost:3000/api/audio
+?language=pt-BR
+&timezone=America%2FSao_Paulo
+Accept: application/json
+Authorization: Bearer MyAuthToken
+
+### POST request demo (mp3 response)
+POST http://localhost:3000/api/audio
+?language=pt-BR
+&timezone=America%2FSao_Paulo
+
+
+### GET request demo (json response)
+GET http://localhost:3000/api/audio
+?language=pt-BR
+&timezone=America%2FSao_Paulo
+Accept: application/json
+Authorization: Bearer MyAuthToken
+
+### GET request demo (mp3 response)
+GET http://localhost:3000/api/audio
+?language=pt-BR
+&timezone=America%2FSao_Paulo

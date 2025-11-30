@@ -1,4 +1,5 @@
 import type { H3Event } from 'h3'
+import { getQuery, getHeader } from 'h3'
 
 /**
  * Detect language from request
@@ -24,7 +25,8 @@ export function detectLanguage(event: H3Event): string {
     }
 
     // 4. Accept-Language header
-    const acceptLanguage = getHeader(event, 'Accept-Language') || getHeader(event, 'accept-language')
+    const acceptLanguage =
+        getHeader(event, 'Accept-Language') || getHeader(event, 'accept-language')
     if (acceptLanguage) {
         // Parse Accept-Language header (e.g., "en-US,en;q=0.9,pt-BR;q=0.8")
         const languages = acceptLanguage

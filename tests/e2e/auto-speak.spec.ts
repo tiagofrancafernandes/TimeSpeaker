@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test'
+import { expect, test } from '@playwright/test'
 
 test.describe('Auto-Speak Feature', () => {
     test('should have auto-speak checkbox', async ({ page }) => {
@@ -61,12 +61,12 @@ test.describe('Auto-Speak Feature', () => {
         // Check all options exist
         const options = await repeatCycleSelect.locator('option').allTextContents()
 
-        expect(options).toContain('Hora fechada (a cada hora)')
-        expect(options).toContain('A cada meia hora')
-        expect(options).toContain('Quarto de hora (a cada 15 minutos)')
-        expect(options).toContain('1/6 de hora (a cada 10 minutos)')
-        expect(options).toContain('Horas pares')
-        expect(options).toContain('Horas ímpares')
+        expect(options).toContain('Closed hour (every hour)')
+        expect(options).toContain('Every half hour')
+        expect(options).toContain('Quarter hour (every 15 minutes)')
+        expect(options).toContain('1/6 hour (every 10 minutes)')
+        expect(options).toContain('Even hours')
+        expect(options).toContain('Odd hours')
     })
 
     test('should show visual indicator when auto-speak is active', async ({ page }) => {

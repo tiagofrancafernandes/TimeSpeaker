@@ -23,8 +23,8 @@ logs
 .env.*
 !.env.example
 
-# Audio cache
-public/audio-cache/*.mp3
+# # Audio cache
+# public/audio-cache/*.mp3
 
 # Test coverage
 coverage

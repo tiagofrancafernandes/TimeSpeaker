@@ -1,6 +1,12 @@
-import { ref, watch, onMounted, onUnmounted } from 'vue'
+import { ref } from 'vue'
 
-export type RepeatCycle = 'hour' | 'half-hour' | 'quarter' | 'ten-minutes' | 'even-hours' | 'odd-hours'
+export type RepeatCycle =
+    | 'hour'
+    | 'half-hour'
+    | 'quarter'
+    | 'ten-minutes'
+    | 'even-hours'
+    | 'odd-hours'
 
 export interface AutoSpeakConfig {
     enabled: boolean
@@ -158,12 +164,12 @@ export function useAutoSpeak() {
      */
     const getRepeatCycleLabel = (cycle: RepeatCycle): string => {
         const labels: Record<RepeatCycle, string> = {
-            hour: 'Hora fechada (a cada hora)',
-            'half-hour': 'A cada meia hora',
-            quarter: 'Quarto de hora (a cada 15 minutos)',
-            'ten-minutes': '1/6 de hora (a cada 10 minutos)',
-            'even-hours': 'Horas pares',
-            'odd-hours': 'Horas ímpares',
+            hour: 'Closed hour (every hour)',
+            'half-hour': 'Every half hour',
+            quarter: 'Quarter hour (every 15 minutes)',
+            'ten-minutes': '1/6 hour (every 10 minutes)',
+            'even-hours': 'Even hours',
+            'odd-hours': 'Odd hours',
         }
         return labels[cycle]
     }

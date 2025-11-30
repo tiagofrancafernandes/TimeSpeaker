@@ -30,14 +30,14 @@ describe('Time Formatter', () => {
     })
 
     describe('formatTime - English (en)', () => {
-        it('should format hour only with o\'clock', () => {
+        it("should format hour only with o'clock", () => {
             const date1 = new Date('2025-11-30T01:00:00')
             const date2 = new Date('2025-11-30T02:00:00')
             const date12 = new Date('2025-11-30T12:00:00')
 
-            expect(formatTime(date1, 'en')).toBe('one o\'clock')
-            expect(formatTime(date2, 'en')).toBe('two o\'clock')
-            expect(formatTime(date12, 'en')).toBe('twelve o\'clock')
+            expect(formatTime(date1, 'en')).toBe("one o'clock")
+            expect(formatTime(date2, 'en')).toBe("two o'clock")
+            expect(formatTime(date12, 'en')).toBe("twelve o'clock")
         })
 
         it('should format hour with minutes', () => {
@@ -103,7 +103,7 @@ describe('Time Formatter', () => {
             const date = new Date('2025-11-30T00:00:00')
 
             expect(formatTime(date, 'pt-BR')).toBe('zero horas')
-            expect(formatTime(date, 'en')).toBe('zero o\'clock')
+            expect(formatTime(date, 'en')).toBe("zero o'clock")
             expect(formatTime(date, 'es')).toBe('cero horas')
         })
 
@@ -111,7 +111,7 @@ describe('Time Formatter', () => {
             const date = new Date('2025-11-30T12:00:00')
 
             expect(formatTime(date, 'pt-BR')).toBe('doze horas')
-            expect(formatTime(date, 'en')).toBe('twelve o\'clock')
+            expect(formatTime(date, 'en')).toBe("twelve o'clock")
             expect(formatTime(date, 'es')).toBe('doce horas')
         })
 

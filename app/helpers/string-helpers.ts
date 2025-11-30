@@ -1,2 +1,2 @@
-export type StringOrNull = string | null;
-export type AnyObject = Record<string, StringOrNull>;
+export type StringOrNull = string | null
+export type AnyObject = Record<string, StringOrNull>
