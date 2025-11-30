@@ -1,39 +1,228 @@
 # TimeSpeaker
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+**English | [Português](./README.pt-BR.md)**
 
-## Setup
+A Nuxt 4 application that generates and serves audio files with the current time in multiple languages using Google Translator TTS.
 
-Make sure to install dependencies:
+## 📋 Requirements
+
+- Node.js 18.x or higher
+- npm, pnpm or yarn
+
+## 🚀 Local Setup
+
+### 1. Install Dependencies
 
 ```bash
-# npm
 npm install
 ```
 
-## Development Server
+### 2. Configure Environment Variables
 
-Start the development server on `http://localhost:3000`:
+Create a `.env` file in the project root:
+
+```env
+# Audio cache directory (default: ./public/audio-cache)
+AUDIO_CACHE_DIR=./public/audio-cache
+
+# Rate limiting
+RATE_LIMIT_UNAUTH=5
+RATE_LIMIT_AUTH=20
+
+# Default language and timezone
+DEFAULT_LANGUAGE=en
+DEFAULT_TIMEZONE=UTC
+
+# TTS speed (0.5 = slower, 1.0 = normal)
+TTS_SPEED=0.5
+```
+
+### 3. Create Cache Directory
 
 ```bash
-# npm
+mkdir -p public/audio-cache
+```
+
+### 4. Start Development Server
+
+```bash
 npm run dev
 ```
 
-## Production
+The application will be available at `http://localhost:3000`
 
-Build the application for production:
+## 🧪 Testing
+
+### Run All Tests
 
 ```bash
-# npm
+npm run test
+```
+
+### Integration Tests
+
+```bash
+npm run test:integration
+```
+
+### E2E Tests
+
+```bash
+npm run test:e2e
+```
+
+## 🏗️ Production Build
+
+### Local Build
+
+```bash
 npm run build
 ```
 
-Locally preview production build:
+### Preview Production Build
 
 ```bash
-# npm
 npm run preview
 ```
 
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+## 📦 Deploy to Vercel
+
+### Option 1: Deploy via GitHub (Recommended)
+
+1. **Push code to GitHub**
+   ```bash
+   git init
+   git add .
+   git commit -m "Initial commit"
+   git branch -M main
+   git remote add origin https://github.com/seu-usuario/timespeaker.git
+   git push -u origin main
+   ```
+
+2. **Import project to Vercel**
+   - Go to [vercel.com](https://vercel.com)
+   - Click "Import Project"
+   - Select your GitHub repository
+   - Configure environment variables
+
+3. **Configure Environment Variables on Vercel**
+
+   In the Vercel dashboard, go to Settings → Environment Variables and add:
+
+   ```
+   AUDIO_CACHE_DIR=/tmp/audio-cache
+   RATE_LIMIT_UNAUTH=5
+   RATE_LIMIT_AUTH=20
+   DEFAULT_LANGUAGE=en
+   DEFAULT_TIMEZONE=UTC
+   TTS_SPEED=0.5
+   ```
+
+   **⚠️ IMPORTANT**: On Vercel, use `/tmp/audio-cache` for the cache directory, as the file system is ephemeral.
+
+4. **Automatic Deployment**
+   - Vercel will automatically deploy on every push to the `main` branch
+
+### Option 2: Deploy via Vercel CLI
+
+1. **Install Vercel CLI**
+   ```bash
+   npm install -g vercel
+   ```
+
+2. **Login to Vercel**
+   ```bash
+   vercel login
+   ```
+
+3. **Deploy**
+   ```bash
+   vercel
+   ```
+
+4. **Deploy to Production**
+   ```bash
+   vercel --prod
+   ```
+
+### Vercel Configuration (vercel.json)
+
+The project already includes a `vercel.json` file with the necessary settings:
+
+```json
+{
+  "buildCommand": "npm run build",
+  "devCommand": "npm run dev",
+  "installCommand": "npm install",
+  "framework": "nuxtjs",
+  "outputDirectory": ".output/public"
+}
+```
+
+## 🔧 Advanced Configuration
+
+### Audio Cache on Vercel
+
+Since Vercel's file system is ephemeral, consider using:
+
+1. **Vercel Blob Storage** (Recommended)
+   - Persistent storage
+   - [Documentation](https://vercel.com/docs/storage/vercel-blob)
+
+2. **Cloudflare R2** or **AWS S3**
+   - External alternatives
+   - Requires additional configuration
+
+### Custom Domain Configuration
+
+1. Go to Settings → Domains in Vercel
+2. Add your custom domain
+3. Configure DNS as instructed
+
+## 📚 Documentation
+
+- [Nuxt Documentation](https://nuxt.com/docs)
+- [Vercel Deployment Guide](https://vercel.com/docs/frameworks/nuxt)
+- [Project CLAUDE.md](../CLAUDE.md) - Complete technical documentation
+- [Project PLANO-DE-ACAO.md](../PLANO-DE-ACAO.md) - Implementation plan
+
+## 🛠️ Available Scripts
+
+| Command | Description |
+|---------|-----------|
+| `npm run dev` | Start development server |
+| `npm run build` | Build for production |
+| `npm run preview` | Preview production build |
+| `npm run test` | Run all tests |
+| `npm run test:integration` | Run integration tests |
+| `npm run test:e2e` | Run E2E tests |
+| `npm run lint` | Run linter |
+| `npm run lint:fix` | Fix linting issues |
+
+## 🌐 API Endpoints
+
+### `GET /api/audio`
+Generates or returns audio of the current time
+
+**Query Parameters:**
+- `language` (optional): Language code (pt-BR, en, es)
+- `timezone` (optional): Timezone (America/Sao_Paulo, UTC, etc.)
+
+**Headers:**
+- `Accept`: `audio/mpeg` or `application/json`
+
+### `GET /api/session`
+Returns current session information
+
+**Response:**
+```json
+{
+  "language": "pt-BR",
+  "timezone": "America/Sao_Paulo",
+  "currentTime": "2025-11-30T14:30:00-03:00"
+}
+```
+
+## 📝 License
+
+MIT

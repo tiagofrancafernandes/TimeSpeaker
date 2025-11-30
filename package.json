@@ -1,5 +1,7 @@
 {
-    "name": "application",
+    "name": "timespeaker",
+    "version": "1.0.0",
+    "description": "A Nuxt 4 application that generates and serves audio files with the current time in multiple languages",
     "type": "module",
     "private": true,
     "scripts": {
@@ -7,7 +9,12 @@
         "dev": "nuxt dev",
         "generate": "nuxt generate",
         "preview": "nuxt preview",
-        "postinstall": "nuxt prepare"
+        "postinstall": "nuxt prepare",
+        "test": "vitest run",
+        "test:integration": "vitest run tests/integration",
+        "test:e2e": "playwright test",
+        "lint": "prettier --check .",
+        "lint:fix": "prettier --write ."
     },
     "dependencies": {
         "@nuxt/content": "^3.8.2",
@@ -25,6 +32,9 @@
         "zod": "^4.1.13"
     },
     "devDependencies": {
+        "@playwright/test": "^1.49.1",
+        "@vue/test-utils": "^2.4.6",
+        "happy-dom": "^15.11.7",
         "prettier": "^3.7.3"
     }
 }
