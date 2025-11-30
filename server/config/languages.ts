@@ -104,7 +104,7 @@ export const languages: Record<string, LanguageConfig> = {
  * Get language configuration
  */
 export function getLanguageConfig(language: string): LanguageConfig {
-    return languages[language] || languages.en
+    return languages[language] || languages['en']
 }
 
 /**

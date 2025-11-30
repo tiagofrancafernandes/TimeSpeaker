@@ -35,6 +35,7 @@
         "@playwright/test": "^1.49.1",
         "@vue/test-utils": "^2.4.6",
         "happy-dom": "^15.11.7",
-        "prettier": "^3.7.3"
+        "prettier": "^3.7.3",
+        "vue-tsc": "^3.1.5"
     }
 }
