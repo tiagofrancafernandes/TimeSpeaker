@@ -1,6 +1,6 @@
 <script setup>
-import { findPageBreadcrumb } from '@nuxt/content/utils';
-import { mapContentNavigation } from '@nuxt/ui/utils/content';
+import { findPageBreadcrumb } from '@nuxt/content/utils'
+import { mapContentNavigation } from '@nuxt/ui/utils/content'
 
 const { data: navigation } = await useAsyncData('navigation', () => queryCollectionNavigation('content'));
 
@@ -21,16 +21,14 @@ const breadcrumb = computed(
 <template>
     <UApp>
         <UPage>
-            <TopNavigation :page="page" class="w-full md:w-10/12 md:mx-auto md:flex-1 md:justify-center" />
-            <UPageHeader v-bind="page">
-                <template #headline>
-                    <UBreadcrumb :items="breadcrumb" />
-                </template>
-            </UPageHeader>
-
-            <main class="px-2 md:px-4 pb-2 md:pb-4">
-                <NuxtPage />
-            </main>
+            <TopNavigation :page="page">
+                <UPageHeader v-bind="page">
+                    <template #headline>
+                        <UBreadcrumb :items="breadcrumb" />
+                    </template>
+                </UPageHeader>
+            </TopNavigation>
+            <NuxtPage />
         </UPage>
     </UApp>
 </template>

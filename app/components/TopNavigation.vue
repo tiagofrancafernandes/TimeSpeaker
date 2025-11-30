@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { makeStaticDocUri } from '~/helpers/doc-helpers';
-import type { AnyObject } from '~/helpers/string-helpers';
+import { makeStaticDocUri } from '~/helpers/doc-helpers'
+import type { AnyObject } from '~/helpers/string-helpers'
 
 const navigationItems = ref([
     {
@@ -139,10 +139,6 @@ const iconList = [
 ];
 
 const allStaticDocs = await queryCollection('staticDocs').order('date', 'DESC').all();
-console.log(
-    'allStaticDocs',
-    allStaticDocs.map((i: any) => makeStaticDocUri(i))
-);
 
 const docsList: any = {
     label: 'Docs',
@@ -180,5 +176,11 @@ pushItemToMenu({
 </script>
 
 <template>
-    <UNavigationMenu :items="navigationItems" />
+    <div class="bg-indigo-100 dark:bg-indigo-900 text-indigo-900 dark:text-indigo-50">
+        <div class="w-full md:w-10/12 md:mx-auto flex gap-4 items-center md:flex-1 md:justify-center">
+            <UNavigationMenu :items="navigationItems" />
+            <UColorModeSwitch :ui="{ base: ['cursor-pointer'] }" />
+        </div>
+        <slot />
+    </div>
 </template>

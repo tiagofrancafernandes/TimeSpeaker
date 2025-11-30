@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { StaticDocsCollectionItem } from '@nuxt/content';
+import type { StaticDocsCollectionItem } from '@nuxt/content'
 
 type StringOrNull = string | null;
 type AnyObject = Record<string, StringOrNull>;
@@ -13,8 +13,6 @@ const allStaticDocs = await queryCollection('staticDocs').order('date', 'DESC').
 
 console.log('docs index currentPage path', currentPage?.path);
 console.log('docs index currentPageData', currentPageData);
-// console.log('allContent', allContent.value);
-console.log('allStaticDocs', allStaticDocs);
 
 useSeoMeta({
     title: currentPageData.value?.title,

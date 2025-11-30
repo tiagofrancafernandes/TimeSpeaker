@@ -1,16 +1,21 @@
 <template>
-    <div class="digital-clock">
-        <div class="time-display">
+    <div class="flex flex-col items-center gap-2">
+        <div class="text-5xl md:text-7xl font-bold font-mono tracking-wider text-gray-900 dark:text-gray-100">
             {{ formattedTime }}
         </div>
-        <div class="date-display">
+        <div class="text-lg md:text-xl text-gray-600 dark:text-gray-400 opacity-80">
             {{ formattedDate }}
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted, computed } from 'vue'
+import {
+    computed,
+    onMounted,
+    onUnmounted,
+    ref,
+} from 'vue'
 
 const props = defineProps<{
     timezone: string
@@ -52,34 +57,3 @@ onUnmounted(() => {
     }
 })
 </script>
-
-<style scoped>
-.digital-clock {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-}
-
-.time-display {
-    font-size: 4rem;
-    font-weight: 700;
-    font-family: 'Courier New', monospace;
-    letter-spacing: 0.1em;
-}
-
-.date-display {
-    font-size: 1.25rem;
-    opacity: 0.8;
-}
-
-@media (max-width: 640px) {
-    .time-display {
-        font-size: 2.5rem;
-    }
-
-    .date-display {
-        font-size: 1rem;
-    }
-}
-</style>

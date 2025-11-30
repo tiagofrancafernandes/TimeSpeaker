@@ -13,9 +13,15 @@ export default defineEventHandler((event: H3Event) => {
     const isAuthenticated = event.context.isAuthenticated || false
 
     // Get rate limits from config
+    const enableDevBypassLimit = config.enableDevBypassLimit || 5
+    const devBypassLimit = enableDevBypassLimit ? config.devBypassLimit ?? 50 : 0;
     const limitUnauth = config.rateLimitUnauth || 5
     const limitAuth = config.rateLimitAuth || 20
-    const limit = isAuthenticated ? limitAuth : limitUnauth
+    let limit = isAuthenticated ? limitAuth : limitUnauth;
+
+    if (devBypassLimit && devBypassLimit > 0) {
+        limit = devBypassLimit;
+    }
 
     // Get client identifier (IP address)
     const clientIp = getRequestIP(event, { xForwardedFor: true }) || 'unknown'

@@ -1,5 +1,12 @@
-import { ref, computed } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
+import {
+    computed,
+    ref,
+} from 'vue'
+
+import {
+    useRoute,
+    useRouter,
+} from 'vue-router'
 
 export const usePreferences = () => {
     const route = useRoute()
@@ -65,17 +72,18 @@ export const usePreferences = () => {
 
             // 4. Browser timezone
             try {
-                const browserTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone
+                const browserTimezone = Intl?.DateTimeFormat()?.resolvedOptions().timeZone
                 if (browserTimezone) {
                     return browserTimezone
                 }
             } catch {
                 // Fallback to default
+                return Intl?.DateTimeFormat()?.resolvedOptions()?.timeZone || 'UTC'
             }
         }
 
         // 5. Default
-        return 'UTC'
+        return Intl?.DateTimeFormat()?.resolvedOptions()?.timeZone || 'UTC';
     }
 
     /**
