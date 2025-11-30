@@ -77,14 +77,12 @@
                         GitHub
                     </a>
                     <span>•</span>
-                    <a
-                        href="/api/session"
-                        target="_blank"
-                        rel="noopener noreferrer"
+                    <NuxtLink
+                        to="/api-docs"
                         class="text-indigo-600 dark:text-indigo-400 hover:underline"
                     >
                         API Docs
-                    </a>
+                    </NuxtLink>
                 </p>
             </footer>
         </div>
