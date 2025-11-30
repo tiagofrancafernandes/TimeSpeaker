@@ -45,6 +45,16 @@
                             <TimezoneSelector v-model="currentTimezone" @change="handleTimezoneChange" />
                         </div>
 
+                        <!-- Auto-Speak Settings -->
+                        <div class="border-t border-gray-200 dark:border-gray-700 pt-6">
+                            <AutoSpeakSettings
+                                :enabled="autoSpeakEnabled"
+                                :repeat-cycle="autoSpeakCycle"
+                                @update:enabled="handleAutoSpeakEnabledChange"
+                                @update:repeat-cycle="handleRepeatCycleChange"
+                            />
+                        </div>
+
                         <div class="flex justify-center mt-6">
                             <PreferencesButton
                                 :language="currentLanguage"
@@ -85,6 +95,7 @@
 import {
     onBeforeMount,
     onMounted,
+    onUnmounted,
     ref,
 } from 'vue'
 
@@ -93,11 +104,25 @@ import LanguageSelector from '@/components/LanguageSelector.vue'
 import PlayButton from '@/components/PlayButton.vue'
 import PreferencesButton from '@/components/PreferencesButton.vue'
 import TimezoneSelector from '@/components/TimezoneSelector.vue'
+import AutoSpeakSettings from '@/components/AutoSpeakSettings.vue'
 import { usePreferences } from '@/composables/usePreferences'
 import { useDarkMode } from '@/composables/useDarkMode'
+import { useAutoSpeak, type RepeatCycle } from '@/composables/useAutoSpeak'
+import { useAudio } from '@/composables/useAudio'
 
 const { getLanguage, getTimezone, updateURL, initialize } = usePreferences();
 const { isDark, toggleDarkMode, initialize: initializeDarkMode } = useDarkMode();
+const {
+    isEnabled: autoSpeakEnabled,
+    repeatCycle: autoSpeakCycle,
+    startAutoSpeak,
+    stopAutoSpeak,
+    enableAutoSpeak,
+    disableAutoSpeak,
+    setRepeatCycle,
+    loadPreferences: loadAutoSpeakPreferences,
+} = useAutoSpeak();
+const { playCurrentTime } = useAudio();
 
 const currentLanguage = ref('en-US');
 const currentTimezone = ref('UTC');
@@ -105,6 +130,7 @@ const currentTimezone = ref('UTC');
 onBeforeMount(() => {
     initialize();
     initializeDarkMode();
+    loadAutoSpeakPreferences();
     currentLanguage.value = getLanguage() || currentLanguage.value || 'en-US';
     currentTimezone.value = getTimezone() || currentTimezone.value || 'UTC';
 });
@@ -112,6 +138,17 @@ onBeforeMount(() => {
 onMounted(() => {
     console.log('currentLanguage.value', currentLanguage.value);
     console.log('currentTimezone.value', currentTimezone.value);
+
+    // Start auto-speak if enabled
+    if (autoSpeakEnabled.value) {
+        startAutoSpeak(() => {
+            playCurrentTime(currentLanguage.value, currentTimezone.value);
+        });
+    }
+});
+
+onUnmounted(() => {
+    stopAutoSpeak();
 });
 
 const handleLanguageChange = (newLanguage: string) => {
@@ -127,5 +164,28 @@ const handleTimezoneChange = (newTimezone: string) => {
 const handlePreferencesSaved = () => {
     // Show a toast or notification (optional)
     console.log('Preferences saved successfully!');
+};
+
+const handleAutoSpeakEnabledChange = (enabled: boolean) => {
+    if (enabled) {
+        enableAutoSpeak(autoSpeakCycle.value);
+        startAutoSpeak(() => {
+            playCurrentTime(currentLanguage.value, currentTimezone.value);
+        });
+    } else {
+        disableAutoSpeak();
+        stopAutoSpeak();
+    }
+};
+
+const handleRepeatCycleChange = (cycle: RepeatCycle) => {
+    setRepeatCycle(cycle);
+    // Restart interval with new cycle if enabled
+    if (autoSpeakEnabled.value) {
+        stopAutoSpeak();
+        startAutoSpeak(() => {
+            playCurrentTime(currentLanguage.value, currentTimezone.value);
+        });
+    }
 };
 </script>
