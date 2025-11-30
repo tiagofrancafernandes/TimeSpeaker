@@ -6,6 +6,7 @@
     "private": true,
     "scripts": {
         "build": "nuxt build",
+        "build:timeout": "timeout 180 npx nuxt build || true",
         "dev": "nuxt dev",
         "generate": "nuxt generate",
         "preview": "nuxt preview",
