@@ -1,4 +1,4 @@
-import tailwindcss from '@tailwindcss/vite'
+import tailwindcss from '@tailwindcss/vite';
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
@@ -17,9 +17,7 @@ export default defineNuxtConfig({
         isDevelopment: process.env.APP_ENV === 'development',
         audioCacheDir: process.env.AUDIO_CACHE_DIR || './public/audio-cache',
         rateLimitUnauth: parseInt(process.env.RATE_LIMIT_UNAUTH || '5'),
-        enableDevBypassLimit: Boolean(
-            process.env.ENABLE_DEV_BYPASS_LIMIT ?? process.env.APP_ENV === 'development'
-        ),
+        enableDevBypassLimit: Boolean(process.env.ENABLE_DEV_BYPASS_LIMIT ?? process.env.APP_ENV === 'development'),
         devBypassLimit: parseInt(process.env.DEV_BYPASS_LIMIT || '120'),
         rateLimitAuth: parseInt(process.env.RATE_LIMIT_AUTH || '20'),
         defaultLanguage: process.env.DEFAULT_LANGUAGE || 'en',
@@ -145,4 +143,4 @@ export default defineNuxtConfig({
             type: 'module',
         },
     },
-})
+});

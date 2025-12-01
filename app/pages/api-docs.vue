@@ -11,9 +11,7 @@
                 >
                     ← Voltar para o app
                 </NuxtLink>
-                <h1 class="text-4xl md:text-5xl font-bold text-gray-900 dark:text-gray-100 mb-4">
-                    API Documentation
-                </h1>
+                <h1 class="text-4xl md:text-5xl font-bold text-gray-900 dark:text-gray-100 mb-4">API Documentation</h1>
                 <p class="text-lg text-gray-700 dark:text-gray-300">
                     Complete API reference with request examples using fetch and curl
                 </p>
@@ -23,24 +21,17 @@
             <div class="space-y-8">
                 <!-- API Overview -->
                 <section class="bg-white dark:bg-gray-900 rounded-xl shadow-lg p-6 md:p-8">
-                    <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">
-                        API Overview
-                    </h2>
+                    <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">API Overview</h2>
                     <p class="text-gray-700 dark:text-gray-300 mb-4">
-                        TimeSpeaker provides two main endpoints for generating and retrieving time
-                        audio files:
+                        TimeSpeaker provides two main endpoints for generating and retrieving time audio files:
                     </p>
                     <ul class="list-disc list-inside text-gray-700 dark:text-gray-300 space-y-2">
                         <li>
-                            <code class="bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded"
-                                >/api/audio</code
-                            >
+                            <code class="bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">/api/audio</code>
                             - Generate or retrieve time audio
                         </li>
                         <li>
-                            <code class="bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded"
-                                >/api/session</code
-                            >
+                            <code class="bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">/api/session</code>
                             - Get current session information
                         </li>
                     </ul>
@@ -48,31 +39,23 @@
 
                 <!-- GET /api/audio -->
                 <section class="bg-white dark:bg-gray-900 rounded-xl shadow-lg p-6 md:p-8">
-                    <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">
-                        GET /api/audio
-                    </h2>
+                    <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">GET /api/audio</h2>
                     <p class="text-gray-700 dark:text-gray-300 mb-4">
                         Generates or retrieves cached audio of the current time.
                     </p>
 
                     <!-- Parameters -->
                     <div class="mb-6">
-                        <h3 class="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
-                            Query Parameters
-                        </h3>
+                        <h3 class="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">Query Parameters</h3>
                         <div class="space-y-3">
                             <div class="border-l-4 border-indigo-500 pl-4">
-                                <p class="font-mono text-sm text-gray-800 dark:text-gray-200">
-                                    language
-                                </p>
+                                <p class="font-mono text-sm text-gray-800 dark:text-gray-200">language</p>
                                 <p class="text-sm text-gray-600 dark:text-gray-400">
                                     Language code (pt-BR, en, es). Default: en
                                 </p>
                             </div>
                             <div class="border-l-4 border-indigo-500 pl-4">
-                                <p class="font-mono text-sm text-gray-800 dark:text-gray-200">
-                                    timezone
-                                </p>
+                                <p class="font-mono text-sm text-gray-800 dark:text-gray-200">timezone</p>
                                 <p class="text-sm text-gray-600 dark:text-gray-400">
                                     Timezone identifier (e.g., America/Sao_Paulo). Default: UTC
                                 </p>
@@ -82,22 +65,15 @@
 
                     <!-- Headers -->
                     <div class="mb-6">
-                        <h3 class="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
-                            Headers
-                        </h3>
+                        <h3 class="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">Headers</h3>
                         <div class="space-y-3">
                             <div class="border-l-4 border-green-500 pl-4">
-                                <p class="font-mono text-sm text-gray-800 dark:text-gray-200">
-                                    Accept
-                                </p>
+                                <p class="font-mono text-sm text-gray-800 dark:text-gray-200">Accept</p>
                                 <p class="text-sm text-gray-600 dark:text-gray-400">
-                                    <code class="bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded"
-                                        >audio/mpeg</code
-                                    >
-                                    returns audio file<br />
-                                    <code class="bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded"
-                                        >application/json</code
-                                    >
+                                    <code class="bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">audio/mpeg</code>
+                                    returns audio file
+                                    <br />
+                                    <code class="bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">application/json</code>
                                     returns JSON with URL
                                 </p>
                             </div>
@@ -150,9 +126,7 @@ fetch('/api/audio?language=en&timezone=UTC', {
 
                     <!-- cURL Example -->
                     <div class="mb-6">
-                        <h3 class="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
-                            cURL Example
-                        </h3>
+                        <h3 class="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">cURL Example</h3>
                         <pre
                             class="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg overflow-x-auto text-sm"
                         ><code class="text-gray-800 dark:text-gray-200"># Download audio file
@@ -173,9 +147,7 @@ curl -H "Accept: audio/mpeg" \
 
                     <!-- Response Examples -->
                     <div>
-                        <h3 class="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
-                            Response Examples
-                        </h3>
+                        <h3 class="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">Response Examples</h3>
                         <div class="space-y-4">
                             <div>
                                 <p class="font-semibold text-gray-800 dark:text-gray-200 mb-2">
@@ -194,9 +166,7 @@ curl -H "Accept: audio/mpeg" \
                                 <p class="font-semibold text-gray-800 dark:text-gray-200 mb-2">
                                     Audio Response (Accept: audio/mpeg):
                                 </p>
-                                <p class="text-sm text-gray-600 dark:text-gray-400">
-                                    Binary audio file (MP3 format)
-                                </p>
+                                <p class="text-sm text-gray-600 dark:text-gray-400">Binary audio file (MP3 format)</p>
                             </div>
                         </div>
                     </div>
@@ -204,34 +174,22 @@ curl -H "Accept: audio/mpeg" \
 
                 <!-- GET /api/session -->
                 <section class="bg-white dark:bg-gray-900 rounded-xl shadow-lg p-6 md:p-8">
-                    <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">
-                        GET /api/session
-                    </h2>
+                    <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">GET /api/session</h2>
                     <p class="text-gray-700 dark:text-gray-300 mb-4">
                         Returns current session information based on request context.
                     </p>
 
                     <!-- Parameters -->
                     <div class="mb-6">
-                        <h3 class="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
-                            Query Parameters
-                        </h3>
+                        <h3 class="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">Query Parameters</h3>
                         <div class="space-y-3">
                             <div class="border-l-4 border-indigo-500 pl-4">
-                                <p class="font-mono text-sm text-gray-800 dark:text-gray-200">
-                                    language (optional)
-                                </p>
-                                <p class="text-sm text-gray-600 dark:text-gray-400">
-                                    Override language detection
-                                </p>
+                                <p class="font-mono text-sm text-gray-800 dark:text-gray-200">language (optional)</p>
+                                <p class="text-sm text-gray-600 dark:text-gray-400">Override language detection</p>
                             </div>
                             <div class="border-l-4 border-indigo-500 pl-4">
-                                <p class="font-mono text-sm text-gray-800 dark:text-gray-200">
-                                    timezone (optional)
-                                </p>
-                                <p class="text-sm text-gray-600 dark:text-gray-400">
-                                    Override timezone detection
-                                </p>
+                                <p class="font-mono text-sm text-gray-800 dark:text-gray-200">timezone (optional)</p>
+                                <p class="text-sm text-gray-600 dark:text-gray-400">Override timezone detection</p>
                             </div>
                         </div>
                     </div>
@@ -262,9 +220,7 @@ fetch('/api/session?language=pt-BR&timezone=America/Sao_Paulo')
 
                     <!-- cURL Example -->
                     <div class="mb-6">
-                        <h3 class="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
-                            cURL Example
-                        </h3>
+                        <h3 class="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">cURL Example</h3>
                         <pre
                             class="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg overflow-x-auto text-sm"
                         ><code class="text-gray-800 dark:text-gray-200"># Auto-detect session
@@ -280,9 +236,7 @@ curl -H "Accept-Language: pt-BR" \
 
                     <!-- Response Example -->
                     <div>
-                        <h3 class="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
-                            Response Example
-                        </h3>
+                        <h3 class="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">Response Example</h3>
                         <pre
                             class="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg overflow-x-auto text-sm"
                         ><code class="text-gray-800 dark:text-gray-200">{
@@ -295,33 +249,23 @@ curl -H "Accept-Language: pt-BR" \
 
                 <!-- Rate Limiting -->
                 <section class="bg-white dark:bg-gray-900 rounded-xl shadow-lg p-6 md:p-8">
-                    <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">
-                        Rate Limiting
-                    </h2>
+                    <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">Rate Limiting</h2>
                     <div class="space-y-4">
                         <div class="border-l-4 border-red-500 pl-4">
-                            <p class="font-semibold text-gray-800 dark:text-gray-200">
-                                Unauthenticated Requests
-                            </p>
-                            <p class="text-sm text-gray-600 dark:text-gray-400">
-                                5 requests per minute per IP address
-                            </p>
+                            <p class="font-semibold text-gray-800 dark:text-gray-200">Unauthenticated Requests</p>
+                            <p class="text-sm text-gray-600 dark:text-gray-400">5 requests per minute per IP address</p>
                         </div>
                         <div class="border-l-4 border-green-500 pl-4">
-                            <p class="font-semibold text-gray-800 dark:text-gray-200">
-                                Authenticated Requests
-                            </p>
+                            <p class="font-semibold text-gray-800 dark:text-gray-200">Authenticated Requests</p>
                             <p class="text-sm text-gray-600 dark:text-gray-400">
                                 20 requests per minute per IP address
                             </p>
                         </div>
-                        <div
-                            class="bg-yellow-50 dark:bg-yellow-900/20 border-l-4 border-yellow-500 p-4"
-                        >
+                        <div class="bg-yellow-50 dark:bg-yellow-900/20 border-l-4 border-yellow-500 p-4">
                             <p class="text-sm text-gray-700 dark:text-gray-300">
-                                <strong>429 Too Many Requests:</strong> When rate limit is exceeded,
-                                the API will return HTTP 429 with a message indicating the limit has
-                                been reached.
+                                <strong>429 Too Many Requests:</strong>
+                                When rate limit is exceeded, the API will return HTTP 429 with a message indicating the
+                                limit has been reached.
                             </p>
                         </div>
                     </div>
@@ -334,26 +278,18 @@ curl -H "Accept-Language: pt-BR" \
                     </h2>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
-                            <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-3">
-                                Languages
-                            </h3>
+                            <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-3">Languages</h3>
                             <ul class="space-y-2 text-gray-700 dark:text-gray-300">
                                 <li>
-                                    <code class="bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded"
-                                        >pt-BR</code
-                                    >
+                                    <code class="bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">pt-BR</code>
                                     - Português (Brasil)
                                 </li>
                                 <li>
-                                    <code class="bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded"
-                                        >en</code
-                                    >
+                                    <code class="bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">en</code>
                                     - English
                                 </li>
                                 <li>
-                                    <code class="bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded"
-                                        >es</code
-                                    >
+                                    <code class="bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">es</code>
                                     - Español
                                 </li>
                             </ul>
@@ -364,29 +300,21 @@ curl -H "Accept-Language: pt-BR" \
                             </h3>
                             <ul class="space-y-2 text-gray-700 dark:text-gray-300 text-sm">
                                 <li>
-                                    <code class="bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded"
-                                        >UTC</code
-                                    >
+                                    <code class="bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">UTC</code>
                                 </li>
                                 <li>
-                                    <code class="bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded"
-                                        >America/Sao_Paulo</code
-                                    >
+                                    <code class="bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">
+                                        America/Sao_Paulo
+                                    </code>
                                 </li>
                                 <li>
-                                    <code class="bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded"
-                                        >America/New_York</code
-                                    >
+                                    <code class="bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">America/New_York</code>
                                 </li>
                                 <li>
-                                    <code class="bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded"
-                                        >Europe/London</code
-                                    >
+                                    <code class="bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">Europe/London</code>
                                 </li>
                                 <li>
-                                    <code class="bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded"
-                                        >Asia/Tokyo</code
-                                    >
+                                    <code class="bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">Asia/Tokyo</code>
                                 </li>
                                 <li class="text-xs text-gray-500 dark:text-gray-500 italic">
                                     + All IANA timezone identifiers
@@ -403,7 +331,6 @@ curl -H "Accept-Language: pt-BR" \
 <script setup lang="ts">
 useSeoMeta({
     title: 'API Documentation - TimeSpeaker',
-    description:
-        'Complete API reference for TimeSpeaker with request examples using fetch and curl',
-})
+    description: 'Complete API reference for TimeSpeaker with request examples using fetch and curl',
+});
 </script>

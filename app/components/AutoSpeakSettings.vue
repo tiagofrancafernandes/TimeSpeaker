@@ -19,10 +19,7 @@
 
         <!-- Repeat Cycle Selector (only shown when enabled) -->
         <div v-if="localEnabled" class="ml-8 space-y-2">
-            <label
-                for="repeat-cycle-select"
-                class="block text-sm font-medium text-gray-700 dark:text-gray-300"
-            >
+            <label for="repeat-cycle-select" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
                 Repeat cycle:
             </label>
             <select
@@ -41,9 +38,7 @@
 
             <!-- Visual Indicator -->
             <div class="flex items-center gap-2 text-sm text-indigo-600 dark:text-indigo-400">
-                <span
-                    class="inline-block w-2 h-2 bg-indigo-600 dark:bg-indigo-400 rounded-full animate-pulse"
-                ></span>
+                <span class="inline-block w-2 h-2 bg-indigo-600 dark:bg-indigo-400 rounded-full animate-pulse"></span>
                 <span>Auto-speak active</span>
             </div>
         </div>
@@ -51,42 +46,42 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue'
+import { ref, watch } from 'vue';
 
-import { type RepeatCycle, useAutoSpeak } from '@/composables/useAutoSpeak'
+import { type RepeatCycle, useAutoSpeak } from '@/composables/useAutoSpeak';
 
 const props = defineProps<{
-    enabled: boolean
-    repeatCycle: RepeatCycle
-}>()
+    enabled: boolean;
+    repeatCycle: RepeatCycle;
+}>();
 
 const emit = defineEmits<{
-    'update:enabled': [value: boolean]
-    'update:repeatCycle': [value: RepeatCycle]
-}>()
+    'update:enabled': [value: boolean];
+    'update:repeatCycle': [value: RepeatCycle];
+}>();
 
-const localEnabled = ref(props.enabled)
-const localRepeatCycle = ref(props.repeatCycle)
+const localEnabled = ref(props.enabled);
+const localRepeatCycle = ref(props.repeatCycle);
 
 watch(
     () => props.enabled,
     (newValue) => {
-        localEnabled.value = newValue
+        localEnabled.value = newValue;
     }
-)
+);
 
 watch(
     () => props.repeatCycle,
     (newValue) => {
-        localRepeatCycle.value = newValue
+        localRepeatCycle.value = newValue;
     }
-)
+);
 
 const handleEnabledChange = () => {
-    emit('update:enabled', localEnabled.value)
-}
+    emit('update:enabled', localEnabled.value);
+};
 
 const handleRepeatCycleChange = () => {
-    emit('update:repeatCycle', localRepeatCycle.value)
-}
+    emit('update:repeatCycle', localRepeatCycle.value);
+};
 </script>

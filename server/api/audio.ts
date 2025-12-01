@@ -1,7 +1,7 @@
-import { getOrCreateCache } from '../utils/audioCache'
-import { generateAudio, getTTSLanguageCode } from '../utils/googleTTS'
-import { detectSession } from '../utils/sessionDetector'
-import { getCurrentTimeFormatted } from '../utils/timeFormatter'
+import { getOrCreateCache } from '../utils/audioCache';
+import { generateAudio, getTTSLanguageCode } from '../utils/googleTTS';
+import { detectSession } from '../utils/sessionDetector';
+import { getCurrentTimeFormatted } from '../utils/timeFormatter';
 
 /**
  * GET /api/audio
@@ -9,58 +9,56 @@ import { getCurrentTimeFormatted } from '../utils/timeFormatter'
  */
 export default defineEventHandler(async (event) => {
     try {
-        const query = getQuery(event) || {}
+        const query = getQuery(event) || {};
 
         // Detect language and timezone from request
-        const { language, timezone } = detectSession(event)
+        const { language, timezone } = detectSession(event);
 
-        let requestURL = getRequestURL(event)
-        let baseUrl = String(requestURL || '')?.split('/api/audio')[0] || ''
+        let requestURL = getRequestURL(event);
+        let baseUrl = String(requestURL || '')?.split('/api/audio')[0] || '';
 
-        let outputType =
-            (query['type'] ?? null) && typeof query['type'] === 'string'
-                ? (query['type'] ?? '').trim()
-                : null
+        let outputType: any =
+            (query['type'] ?? null) && typeof query['type'] === 'string' ? (query['type'] ?? '').trim() : null;
 
-        outputType = ['json', 'json-file', 'mp3', 'audio', 'file', 'mp3-file'].includes(outputType)
-            ? outputType
-            : null
+        let uid: any = (query['uid'] ?? null) && typeof query['uid'] === 'string' ? (query['uid'] ?? '').trim() : '';
+
+        outputType = ['json', 'json-file', 'mp3', 'audio', 'file', 'mp3-file'].includes(outputType) ? outputType : null;
 
         // Get current time formatted in the detected language
-        const timeText = getCurrentTimeFormatted(timezone, language)
+        const timeText = getCurrentTimeFormatted(timezone, language);
 
         // Get TTS language code
-        const ttsLanguage = getTTSLanguageCode(language)
+        const ttsLanguage = getTTSLanguageCode(language);
 
         // Get or create cached audio
         const { buffer, hash, cached } = await getOrCreateCache(timeText, language, async () => {
-            return await generateAudio(timeText, ttsLanguage)
-        })
+            return await generateAudio(timeText, ttsLanguage);
+        });
 
         // Check Accept header to determine response type
-        const acceptHeader = getHeader(event, 'Accept') || getHeader(event, 'accept') || ''
+        const acceptHeader = getHeader(event, 'Accept') || getHeader(event, 'accept') || '';
 
         if (!outputType) {
-            outputType = acceptHeader.includes('application/json') ? 'json' : 'mp3-file'
+            outputType = acceptHeader.includes('application/json') ? 'json' : 'mp3-file';
         }
 
         if (['json', 'json-file'].includes(outputType)) {
             // Return JSON response with audio URL
-            const audioUrl = `/audio-cache/${hash}.mp3`
+            const audioUrl = `/audio-cache/${hash}.mp3`;
 
-            let getUrlForResponseAs = (url, type = 'json') => {
-                type = ['audio', 'json'].includes(type) ? type : 'json'
-                url = new URL(String(url))
-                url.searchParams.set('type', 'audio')
+            let getUrlForResponseAs = (url: any, type = 'json') => {
+                type = ['audio', 'json'].includes(type) ? type : 'json';
+                url = new URL(String(url));
+                url.searchParams.set('type', 'audio');
 
-                return url.toString()
-            }
+                return url.toString();
+            };
 
-            const now = new Date()
+            const now = new Date();
 
             const getIsoDate = (date = null, timeZone = 'UTC') => {
-                date = date || now
-                timeZone = timeZone || 'UTC'
+                date = date || now;
+                timeZone = timeZone || 'UTC';
 
                 const parts = new Intl.DateTimeFormat('en-CA', {
                     timeZone,
@@ -71,12 +69,12 @@ export default defineEventHandler(async (event) => {
                     minute: '2-digit',
                     second: '2-digit',
                     hour12: false,
-                }).formatToParts(date)
+                }).formatToParts(date);
 
-                const get = (type) => parts.find((p) => p.type === type).value
+                const get = (type) => parts.find((p) => p.type === type).value;
 
-                return `${get('year')}-${get('month')}-${get('day')}T${get('hour')}:${get('minute')}:${get('second')}`
-            }
+                return `${get('year')}-${get('month')}-${get('day')}T${get('hour')}:${get('minute')}:${get('second')}`;
+            };
 
             return {
                 path: audioUrl,
@@ -95,17 +93,17 @@ export default defineEventHandler(async (event) => {
                 responseAsAudio: getUrlForResponseAs(requestURL, 'audio'),
                 responseAsJson: getUrlForResponseAs(requestURL, 'json'),
                 cached,
-            }
+            };
         }
 
         // Return audio file directly
         setResponseHeaders(event, {
             'Content-Type': 'audio/mpeg',
-            'Content-Disposition': `inline; filename="${hash}.mp3"`,
+            'Content-Disposition': `inline; filename="${hash}-${uid}.mp3"`,
             'Cache-Control': 'public, max-age=' + 60 * 5, // Cache for 5 minutes
-        })
+        });
 
-        return buffer
+        return buffer;
     } catch (error) {
         throw createError({
             statusCode: 500,
@@ -114,6 +112,6 @@ export default defineEventHandler(async (event) => {
                 error: 'Failed to generate audio',
                 message: error instanceof Error ? error.message : 'Unknown error',
             },
-        })
+        });
     }
-})
+});

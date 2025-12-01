@@ -2,7 +2,7 @@
 useSeoMeta({
     title: 'Info Page',
     description: 'My app Info Page description',
-})
+});
 </script>
 
 <template>

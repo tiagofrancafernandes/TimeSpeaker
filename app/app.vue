@@ -1,8 +1,8 @@
 <script setup>
-import { useDarkMode } from './composables/useDarkMode'
+import { useDarkMode } from './composables/useDarkMode';
 
-const { initialize } = useDarkMode()
-initialize()
+const { initialize } = useDarkMode();
+initialize();
 </script>
 
 <template>
