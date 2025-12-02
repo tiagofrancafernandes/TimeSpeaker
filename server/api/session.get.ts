@@ -1,4 +1,4 @@
-import { detectSession } from '../utils/sessionDetector'
+import { detectSession } from '../utils/sessionDetector';
 
 /**
  * GET /api/session
@@ -6,7 +6,7 @@ import { detectSession } from '../utils/sessionDetector'
  */
 export default defineEventHandler((event) => {
     // Detect language and timezone from request
-    const { language, timezone } = detectSession(event)
+    const { language, timezone } = detectSession(event);
 
     // Get current time in the detected timezone
     const currentTime = new Date().toLocaleString('en-US', {
@@ -18,15 +18,15 @@ export default defineEventHandler((event) => {
         minute: '2-digit',
         second: '2-digit',
         hour12: false,
-    })
+    });
 
     // Format as ISO-like string with timezone info
-    const date = new Date(currentTime)
-    const isoTime = date.toISOString()
+    const date = new Date(currentTime);
+    const isoTime = date.toISOString();
 
     return {
         language,
         timezone,
         currentTime: isoTime,
-    }
-})
+    };
+});

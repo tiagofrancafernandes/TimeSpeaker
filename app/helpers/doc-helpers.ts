@@ -1,6 +1,6 @@
-import type { StaticDocsCollectionItem } from '@nuxt/content'
+import type { StaticDocsCollectionItem } from '@nuxt/content';
 
-import type { StringOrNull } from './string-helpers'
+import type { StringOrNull } from './string-helpers';
 
 export const makeStaticDocUri = (item: StaticDocsCollectionItem): string => {
     return (
@@ -10,5 +10,5 @@ export const makeStaticDocUri = (item: StaticDocsCollectionItem): string => {
             .replaceAll(/^(staticDocs){1,}/g, '')
             .replaceAll(/^(staticdocs){1,}/g, '')
             .replaceAll(/^(\/){1,}/g, '')
-    )
-}
+    );
+};

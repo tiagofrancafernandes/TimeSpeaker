@@ -5,14 +5,14 @@
  * @returns Audio buffer (MP3)
  */
 export async function generateAudio(text: string, language: string): Promise<Buffer> {
-    const config = useRuntimeConfig()
-    const ttsSpeed = config.ttsSpeed || 0.5
+    const config = useRuntimeConfig();
+    const ttsSpeed = config.ttsSpeed || 0.5;
 
     // Encode text for URL
-    const encodedText = encodeURIComponent(text)
+    const encodedText = encodeURIComponent(text);
 
     // Build Google TTS URL
-    const url = `https://translate.googleapis.com/translate_tts?client=gtx&q=${encodedText}&tl=${language}&ttsspeed=${ttsSpeed}`
+    const url = `https://translate.googleapis.com/translate_tts?client=gtx&q=${encodedText}&tl=${language}&ttsspeed=${ttsSpeed}`;
 
     try {
         // Fetch audio from Google TTS
@@ -21,19 +21,17 @@ export async function generateAudio(text: string, language: string): Promise<Buf
                 'User-Agent':
                     'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
             },
-        })
+        });
 
         if (!response.ok) {
-            throw new Error(`Google TTS API returned ${response.status}: ${response.statusText}`)
+            throw new Error(`Google TTS API returned ${response.status}: ${response.statusText}`);
         }
 
         // Convert response to buffer
-        const arrayBuffer = await response.arrayBuffer()
-        return Buffer.from(arrayBuffer)
+        const arrayBuffer = await response.arrayBuffer();
+        return Buffer.from(arrayBuffer);
     } catch (error) {
-        throw new Error(
-            `Failed to generate audio: ${error instanceof Error ? error.message : 'Unknown error'}`
-        )
+        throw new Error(`Failed to generate audio: ${error instanceof Error ? error.message : 'Unknown error'}`);
     }
 }
 
@@ -48,7 +46,7 @@ export function getTTSLanguageCode(language: string): string {
         pt: 'pt',
         en: 'en',
         es: 'es',
-    }
+    };
 
-    return languageMap[language] || 'en'
+    return languageMap[language] || 'en';
 }

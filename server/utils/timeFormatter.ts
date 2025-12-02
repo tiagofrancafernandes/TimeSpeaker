@@ -1,4 +1,4 @@
-import { getLanguageConfig } from '../config/languages'
+import { getLanguageConfig } from '../config/languages';
 
 /**
  * Format time to spoken text in the specified language
@@ -7,11 +7,11 @@ import { getLanguageConfig } from '../config/languages'
  * @returns Formatted time text
  */
 export function formatTime(date: Date, language: string): string {
-    const hours = date.getHours()
-    const minutes = date.getMinutes()
+    const hours = date.getHours();
+    const minutes = date.getMinutes();
 
-    const config = getLanguageConfig(language)
-    return config.formatTime(hours, minutes)
+    const config = getLanguageConfig(language);
+    return config.formatTime(hours, minutes);
 }
 
 /**
@@ -26,7 +26,7 @@ export function getCurrentTimeFormatted(timezone: string, language: string): str
         new Date().toLocaleString('en-US', {
             timeZone: timezone,
         })
-    )
+    );
 
-    return formatTime(date, language)
+    return formatTime(date, language);
 }

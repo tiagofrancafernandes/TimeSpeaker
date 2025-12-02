@@ -1,7 +1,9 @@
+export type NumberType = 'hour' | 'minute' | 'second' | 'auto';
+
 /**
  * Convert numbers (0-59) to text in Portuguese (pt-BR)
  */
-export function numberToTextPtBR(n: number): string {
+export function numberToTextPtBR(n: number, type: NumberType = 'auto'): string {
     const units: Record<number, string> = {
         0: 'zero',
         1: 'um',
@@ -23,6 +25,14 @@ export function numberToTextPtBR(n: number): string {
         17: 'dezessete',
         18: 'dezoito',
         19: 'dezenove',
+        21: 'vinte e um',
+        22: 'vinte e dois',
+    };
+
+    if (type === 'hour') {
+        units[1] = 'uma';
+        units[2] = 'duas';
+        units[21] = 'vinte e uma';
     }
 
     const tens: Record<number, string> = {
@@ -30,20 +40,20 @@ export function numberToTextPtBR(n: number): string {
         30: 'trinta',
         40: 'quarenta',
         50: 'cinquenta',
-    }
+    };
 
     if (n in units) {
-        return units[n]
+        return units[n];
     }
 
-    const tenValue = Math.floor(n / 10) * 10
-    const unitValue = n % 10
+    const tenValue = Math.floor(n / 10) * 10;
+    const unitValue = n % 10;
 
     if (unitValue === 0) {
-        return tens[tenValue]
+        return tens[tenValue];
     }
 
-    return `${tens[tenValue]} e ${units[unitValue]}`
+    return `${tens[tenValue]} e ${units[unitValue]}`;
 }
 
 /**
@@ -71,27 +81,27 @@ export function numberToTextEN(n: number): string {
         17: 'seventeen',
         18: 'eighteen',
         19: 'nineteen',
-    }
+    };
 
     const tens: Record<number, string> = {
         20: 'twenty',
         30: 'thirty',
         40: 'forty',
         50: 'fifty',
-    }
+    };
 
     if (n in units) {
-        return units[n]
+        return units[n];
     }
 
-    const tenValue = Math.floor(n / 10) * 10
-    const unitValue = n % 10
+    const tenValue = Math.floor(n / 10) * 10;
+    const unitValue = n % 10;
 
     if (unitValue === 0) {
-        return tens[tenValue]
+        return tens[tenValue];
     }
 
-    return `${tens[tenValue]}-${units[unitValue]}`
+    return `${tens[tenValue]}-${units[unitValue]}`;
 }
 
 /**
@@ -129,26 +139,26 @@ export function numberToTextES(n: number): string {
         27: 'veintisiete',
         28: 'veintiocho',
         29: 'veintinueve',
-    }
+    };
 
     const tens: Record<number, string> = {
         30: 'treinta',
         40: 'cuarenta',
         50: 'cincuenta',
-    }
+    };
 
     if (n in units) {
-        return units[n]
+        return units[n];
     }
 
-    const tenValue = Math.floor(n / 10) * 10
-    const unitValue = n % 10
+    const tenValue = Math.floor(n / 10) * 10;
+    const unitValue = n % 10;
 
     if (unitValue === 0) {
-        return tens[tenValue]
+        return tens[tenValue];
     }
 
-    return `${tens[tenValue]} y ${units[unitValue]}`
+    return `${tens[tenValue]} y ${units[unitValue]}`;
 }
 
 /**
@@ -158,14 +168,14 @@ export function numberToText(n: number, language: string): string {
     switch (language) {
         case 'pt':
         case 'pt-BR':
-            return numberToTextPtBR(n)
+            return numberToTextPtBR(n);
         case 'en':
         case 'en-US':
-            return numberToTextEN(n)
+            return numberToTextEN(n);
         case 'es':
         case 'es-ES':
-            return numberToTextES(n)
+            return numberToTextES(n);
         default:
-            return numberToTextEN(n) // Default to English
+            return numberToTextEN(n); // Default to English
     }
 }

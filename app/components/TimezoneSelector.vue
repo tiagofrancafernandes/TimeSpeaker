@@ -1,9 +1,7 @@
 <template>
     <div class="w-full">
         <div v-if="!isEditing" class="w-full">
-            <label class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300"
-                >Timezone:</label
-            >
+            <label class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">Timezone:</label>
             <div
                 class="flex items-center justify-between gap-3 px-4 py-1 bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg"
             >
@@ -18,11 +16,9 @@
         </div>
 
         <div v-else class="w-full space-y-3">
-            <label
-                for="timezone-select"
-                class="block text-sm font-medium text-gray-700 dark:text-gray-300"
-                >Select Timezone</label
-            >
+            <label for="timezone-select" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                Select Timezone
+            </label>
             <div class="flex flex-col sm:flex-row gap-2">
                 <select
                     id="timezone-select"
@@ -59,40 +55,40 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue'
+import { ref, watch } from 'vue';
 
 const props = defineProps<{
-    modelValue: string
-}>()
+    modelValue: string;
+}>();
 
 const emit = defineEmits<{
-    'update:modelValue': [value: string]
-    change: [value: string]
-}>()
+    'update:modelValue': [value: string];
+    change: [value: string];
+}>();
 
-const isEditing = ref(false)
-const selectedTimezone = ref(props.modelValue)
+const isEditing = ref(false);
+const selectedTimezone = ref(props.modelValue);
 
 watch(
     () => props.modelValue,
     (newValue) => {
-        selectedTimezone.value = newValue
+        selectedTimezone.value = newValue;
     }
-)
+);
 
 const startEditing = () => {
-    isEditing.value = true
-    selectedTimezone.value = props.modelValue
-}
+    isEditing.value = true;
+    selectedTimezone.value = props.modelValue;
+};
 
 const saveTimezone = () => {
-    emit('update:modelValue', selectedTimezone.value)
-    emit('change', selectedTimezone.value)
-    isEditing.value = false
-}
+    emit('update:modelValue', selectedTimezone.value);
+    emit('change', selectedTimezone.value);
+    isEditing.value = false;
+};
 
 const cancelEditing = () => {
-    selectedTimezone.value = props.modelValue
-    isEditing.value = false
-}
+    selectedTimezone.value = props.modelValue;
+    isEditing.value = false;
+};
 </script>

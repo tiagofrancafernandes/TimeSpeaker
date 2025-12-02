@@ -9,21 +9,21 @@
 </template>
 
 <script setup lang="ts">
-import { usePreferences } from '../composables/usePreferences'
+import { usePreferences } from '../composables/usePreferences';
 
 const props = defineProps<{
-    language: string
-    timezone: string
-}>()
+    language: string;
+    timezone: string;
+}>();
 
 const emit = defineEmits<{
-    saved: []
-}>()
+    saved: [];
+}>();
 
-const { savePreferences } = usePreferences()
+const { savePreferences } = usePreferences();
 
 const handleSave = () => {
-    savePreferences(props.language, props.timezone)
-    emit('saved')
-}
+    savePreferences(props.language, props.timezone);
+    emit('saved');
+};
 </script>

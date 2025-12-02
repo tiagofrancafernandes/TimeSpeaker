@@ -18,23 +18,19 @@
         "lint:fix": "prettier --write ."
     },
     "dependencies": {
-        "@nuxt/content": "^3.8.2",
-        "@nuxt/scripts": "^0.13.0",
-        "@nuxt/test-utils": "^3.20.1",
         "@nuxt/ui": "^4.2.1",
         "@nuxtjs/color-mode": "^4.0.0",
         "@tailwindcss/vite": "^4.1.17",
         "@unhead/vue": "^2.0.19",
         "@vite-pwa/nuxt": "^1.1.0",
-        "better-sqlite3": "^12.5.0",
         "nuxt": "^4.2.1",
         "tailwindcss": "^4.1.17",
         "typescript": "^5.9.3",
         "vue": "^3.5.25",
-        "vue-router": "^4.6.3",
-        "zod": "^4.1.13"
+        "vue-router": "^4.6.3"
     },
     "devDependencies": {
+        "@nuxt/test-utils": "^3.20.1",
         "@playwright/test": "^1.49.1",
         "@vue/test-utils": "^2.4.6",
         "happy-dom": "^15.11.7",

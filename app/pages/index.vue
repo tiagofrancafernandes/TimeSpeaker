@@ -6,9 +6,7 @@
             class="relative w-full md:max-w-4xl px-8 rounded-3xl bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-50 py-6 shadow-2xl"
         >
             <header class="mb-8 pt-2">
-                <h1
-                    class="text-4xl md:text-5xl font-bold text-center mb-2 text-indigo-600 dark:text-indigo-400"
-                >
+                <h1 class="text-4xl md:text-5xl font-bold text-center mb-2 text-indigo-600 dark:text-indigo-400">
                     TimeSpeaker
                 </h1>
                 <p class="text-center text-gray-600 dark:text-gray-400 text-lg">
@@ -16,10 +14,7 @@
                 </p>
             </header>
 
-            <main
-                class="px-2 md:px-4 pb-2 md:pb-4 space-y-8"
-                v-if="currentLanguage && currentTimezone"
-            >
+            <main class="px-2 md:px-4 pb-2 md:pb-4 space-y-8" v-if="currentLanguage && currentTimezone">
                 <!-- Digital Clock -->
                 <div class="flex justify-center">
                     <DigitalClock :timezone="currentTimezone" />
@@ -33,14 +28,8 @@
                 <!-- Settings -->
                 <div class="space-y-6">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <LanguageSelector
-                            v-model="currentLanguage"
-                            @change="handleLanguageChange"
-                        />
-                        <TimezoneSelector
-                            v-model="currentTimezone"
-                            @change="handleTimezoneChange"
-                        />
+                        <LanguageSelector v-model="currentLanguage" @change="handleLanguageChange" />
+                        <TimezoneSelector v-model="currentTimezone" @change="handleTimezoneChange" />
                     </div>
 
                     <!-- Auto-Speak Settings -->
@@ -77,10 +66,7 @@
                         GitHub
                     </a>
                     <span>•</span>
-                    <NuxtLink
-                        to="/api-docs"
-                        class="text-indigo-600 dark:text-indigo-400 hover:underline"
-                    >
+                    <NuxtLink to="/api-docs" class="text-indigo-600 dark:text-indigo-400 hover:underline">
                         API Docs
                     </NuxtLink>
                 </p>
@@ -90,19 +76,19 @@
 </template>
 
 <script setup lang="ts">
-import { onBeforeMount, onMounted, onUnmounted, ref } from 'vue'
+import { onBeforeMount, onMounted, onUnmounted, ref } from 'vue';
 
-import AutoSpeakSettings from '@/components/AutoSpeakSettings.vue'
-import DigitalClock from '@/components/DigitalClock.vue'
-import LanguageSelector from '@/components/LanguageSelector.vue'
-import PlayButton from '@/components/PlayButton.vue'
-import PreferencesButton from '@/components/PreferencesButton.vue'
-import TimezoneSelector from '@/components/TimezoneSelector.vue'
-import { useAudio } from '@/composables/useAudio'
-import { type RepeatCycle, useAutoSpeak } from '@/composables/useAutoSpeak'
-import { usePreferences } from '@/composables/usePreferences'
+import AutoSpeakSettings from '@/components/AutoSpeakSettings.vue';
+import DigitalClock from '@/components/DigitalClock.vue';
+import LanguageSelector from '@/components/LanguageSelector.vue';
+import PlayButton from '@/components/PlayButton.vue';
+import PreferencesButton from '@/components/PreferencesButton.vue';
+import TimezoneSelector from '@/components/TimezoneSelector.vue';
+import { useAudio } from '@/composables/useAudio';
+import { type RepeatCycle, useAutoSpeak } from '@/composables/useAutoSpeak';
+import { usePreferences } from '@/composables/usePreferences';
 
-const { getLanguage, getTimezone, updateURL, initialize } = usePreferences()
+const { getLanguage, getTimezone, updateURL, initialize } = usePreferences();
 const {
     isEnabled: autoSpeakEnabled,
     repeatCycle: autoSpeakCycle,
@@ -112,78 +98,78 @@ const {
     disableAutoSpeak,
     setRepeatCycle,
     loadPreferences: loadAutoSpeakPreferences,
-} = useAutoSpeak()
-const { playCurrentTime } = useAudio()
+} = useAutoSpeak();
+const { playCurrentTime } = useAudio();
 
 const tryTz = () => {
     try {
-        return Intl?.DateTimeFormat()?.resolvedOptions().timeZone || 'UTC'
+        return Intl?.DateTimeFormat()?.resolvedOptions().timeZone || 'UTC';
     } catch (error) {
-        return 'UTC'
+        return 'UTC';
     }
-}
+};
 
-const currentLanguage = ref('en-US')
-const currentTimezone = ref(tryTz())
+const currentLanguage = ref('en-US');
+const currentTimezone = ref(tryTz());
 
 onBeforeMount(() => {
-    initialize()
-    loadAutoSpeakPreferences()
-    currentLanguage.value = getLanguage() || currentLanguage.value || 'en-US'
-    currentTimezone.value = getTimezone() || currentTimezone.value || 'UTC'
-})
+    initialize();
+    loadAutoSpeakPreferences();
+    currentLanguage.value = getLanguage() || currentLanguage.value || 'en-US';
+    currentTimezone.value = getTimezone() || currentTimezone.value || 'UTC';
+});
 
 onMounted(() => {
-    console.log('currentLanguage.value', currentLanguage.value)
-    console.log('currentTimezone.value', currentTimezone.value)
+    console.log('currentLanguage.value', currentLanguage.value);
+    console.log('currentTimezone.value', currentTimezone.value);
 
     // Start auto-speak if enabled
     if (autoSpeakEnabled.value) {
         startAutoSpeak(() => {
-            playCurrentTime(currentLanguage.value, currentTimezone.value)
-        })
+            playCurrentTime(currentLanguage.value, currentTimezone.value);
+        });
     }
-})
+});
 
 onUnmounted(() => {
-    stopAutoSpeak()
-})
+    stopAutoSpeak();
+});
 
 const handleLanguageChange = (newLanguage: string) => {
-    currentLanguage.value = newLanguage
-    updateURL(currentLanguage.value, currentTimezone.value)
-}
+    currentLanguage.value = newLanguage;
+    updateURL(currentLanguage.value, currentTimezone.value);
+};
 
 const handleTimezoneChange = (newTimezone: string) => {
-    currentTimezone.value = newTimezone
-    updateURL(currentLanguage.value, currentTimezone.value)
-}
+    currentTimezone.value = newTimezone;
+    updateURL(currentLanguage.value, currentTimezone.value);
+};
 
 const handlePreferencesSaved = () => {
     // Show a toast or notification (optional)
-    console.log('Preferences saved successfully!')
-}
+    console.log('Preferences saved successfully!');
+};
 
 const handleAutoSpeakEnabledChange = (enabled: boolean) => {
     if (enabled) {
-        enableAutoSpeak(autoSpeakCycle.value)
+        enableAutoSpeak(autoSpeakCycle.value);
         startAutoSpeak(() => {
-            playCurrentTime(currentLanguage.value, currentTimezone.value)
-        })
+            playCurrentTime(currentLanguage.value, currentTimezone.value);
+        });
     } else {
-        disableAutoSpeak()
-        stopAutoSpeak()
+        disableAutoSpeak();
+        stopAutoSpeak();
     }
-}
+};
 
 const handleRepeatCycleChange = (cycle: RepeatCycle) => {
-    setRepeatCycle(cycle)
+    setRepeatCycle(cycle);
     // Restart interval with new cycle if enabled
     if (autoSpeakEnabled.value) {
-        stopAutoSpeak()
+        stopAutoSpeak();
         startAutoSpeak(() => {
-            playCurrentTime(currentLanguage.value, currentTimezone.value)
-        })
+            playCurrentTime(currentLanguage.value, currentTimezone.value);
+        });
     }
-}
+};
 </script>
